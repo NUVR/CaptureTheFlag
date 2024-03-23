@@ -21,6 +21,7 @@ public class Grab : MonoBehaviour
     public KeyCode grabKey = KeyCode.G;
 
     private bool grabbing;
+    //private SpringJoint joint;
 
     // Start is called before the first frame update
     void Start()
@@ -44,6 +45,7 @@ public class Grab : MonoBehaviour
         }
     }
 
+    /*
     void lateUpdate()
     {
         if(grabbing)
@@ -51,6 +53,7 @@ public class Grab : MonoBehaviour
             lr.SetPosition(0, gunTip.position);
         }
     }
+    */
 
     void StartGrab()
     {
@@ -71,8 +74,8 @@ public class Grab : MonoBehaviour
             Invoke(nameof(ExecuteGrab), delayTime);
         }
 
-        lr.enabled = true;
-        lr.SetPosition(1, grabPoint);
+        //lr.enabled = true;
+        //lr.SetPosition(1, grabPoint);
         
     }
 
@@ -82,6 +85,18 @@ public class Grab : MonoBehaviour
 
         cooldown = cooldownTimer;
 
-        lr.enabled = false;
+        //lr.enabled = false;
     }
+
+    public bool IsGrabbing()
+    {
+        return grabbing;
+    }
+
+    public Vector3 GetGrabPoint()
+    {
+        return grabPoint;
+    }
+
+
 }

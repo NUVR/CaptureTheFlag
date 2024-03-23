@@ -11,6 +11,7 @@ public class GrabRope : MonoBehaviour
 
     public int quality;
     public float damper;
+    public float strength;
     public float velocity;
     public float waveCount;
     public float waveHeight;
@@ -35,7 +36,7 @@ public class GrabRope : MonoBehaviour
 
     void DrawRope()
     {
-        if (!grab.GetGrabbing())
+        if (!grab.IsGrabbing())
         {
             currentGrabPos = grab.gunTip.position;
             spring.Reset();
@@ -55,12 +56,12 @@ public class GrabRope : MonoBehaviour
             lr.positionCount = quality + 1;
         }
 
-        spring.setDamper(damper);
-        spring.setStrength(strength);
+        spring.SetDamper(damper);
+        spring.SetStrength(strength);
         spring.Update(Time.deltaTime);
 
         var grabPoint = grab.GetGrabPoint();
-        var gunTipPos = grab.gunTip.position();
+        var gunTipPos = grab.gunTip.position;
         var up = Quaternion.LookRotation((grabPoint - gunTipPos).normalized) * Vector3.up;
 
 
@@ -69,7 +70,7 @@ public class GrabRope : MonoBehaviour
         for (var i = 0; i < quality + 1; i++)
         {
             var delta = i / (float) quality;
-            var offset = up * waveHeight * Mathf.sin(delta * waveCount * Mathf.PI)
+            var offset = up * waveHeight * Mathf.Sin(delta * waveCount * Mathf.PI)
                 * spring.Value * affectCurve.Evaluate(delta);
 
             lr.SetPosition(i, Vector3.Lerp(gunTipPos, currentGrabPos, delta) + offset);
