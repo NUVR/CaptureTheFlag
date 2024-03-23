@@ -18,10 +18,10 @@ public class GrabRope : MonoBehaviour
     public AnimationCurve affectCurve;
 
    
-         // Start is called before the first frame update
+
     void Awake()
     {
-        lr.enabled = false;
+        //lr.enabled = false;
         //pm = GetComponent<Grab>();
 
         spring = new Spring();
