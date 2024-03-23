@@ -25,13 +25,18 @@ public class Grab : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        lr.enabled = false;
         pm = GetComponent<Grab>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(grabKey)) StartGrab();
+        if (Input.GetKeyDown(grabKey))
+        {
+            Debug.Log("input hit");
+            StartGrab();
+        }
 
         if (cooldownTimer > 0)
         {
@@ -63,6 +68,7 @@ public class Grab : MonoBehaviour
         else
         {
             grabPoint = cam.position + cam.forward * maxGrabDistance;
+            Invoke(nameof(ExecuteGrab), delayTime);
         }
 
         lr.enabled = true;
