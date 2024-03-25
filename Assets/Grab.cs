@@ -8,7 +8,9 @@ public class Grab : MonoBehaviour
     public Transform cam;
     public Transform gunTip;
     public LayerMask whatIsGrabbable;
+
     public LineRenderer lr;
+    public GameObject hands;
 
     public float maxGrabDistance;
     public float delayTime;
@@ -18,7 +20,7 @@ public class Grab : MonoBehaviour
     public float cooldown;
     private float cooldownTimer;
 
-    public KeyCode grabKey = KeyCode.G;
+    public KeyCode grabKey;
 
     private bool grabbing;
     //private SpringJoint joint;
@@ -26,7 +28,7 @@ public class Grab : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        lr.enabled = false;
+        //lr.enabled = false;
         pm = GetComponent<Grab>();
     }
 
@@ -65,6 +67,7 @@ public class Grab : MonoBehaviour
         if (Physics.Raycast(cam.position, cam.forward, out hit, maxGrabDistance, whatIsGrabbable))
         {
             grabPoint = hit.point;
+            Debug.Log("hit grabbable");
 
             Invoke(nameof(ExecuteGrab), delayTime);
         }
@@ -72,6 +75,7 @@ public class Grab : MonoBehaviour
         {
             grabPoint = cam.position + cam.forward * maxGrabDistance;
             Invoke(nameof(ExecuteGrab), delayTime);
+            Debug.Log("grab max distance");
         }
 
         //lr.enabled = true;

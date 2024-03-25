@@ -6,6 +6,7 @@ public class GrabRope : MonoBehaviour
 {
     private Spring spring;
     public LineRenderer lr;
+    public GameObject hands;
     public Grab grab;
     private Vector3 currentGrabPos;
 
@@ -21,25 +22,28 @@ public class GrabRope : MonoBehaviour
 
     void Awake()
     {
-        //lr.enabled = false;
-        //pm = GetComponent<Grab>();
-
         spring = new Spring();
         spring.SetTarget(0);
     }
 
-    // Update is called once per frame
+    //update method
     void LateUpdate()
     {
         DrawRope();
     }
 
+    //draw the rope 
     void DrawRope()
     {
+        //is not grabbing bring it back
         if (!grab.IsGrabbing())
         {
+            //TODO HERE: bring back the hands and line!
+            //setting equal just  "deletes it"
             currentGrabPos = grab.gunTip.position;
             spring.Reset();
+            //for loop reverse math? bring it back
+            
 
             if (lr.positionCount > 0)
             {
@@ -74,6 +78,7 @@ public class GrabRope : MonoBehaviour
                 * spring.Value * affectCurve.Evaluate(delta);
 
             lr.SetPosition(i, Vector3.Lerp(gunTipPos, currentGrabPos, delta) + offset);
+            hands.transform.position = lr.GetPosition(i);
         }
     }
 }
